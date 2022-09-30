@@ -9,6 +9,7 @@ public class Lexico {
         try {
             String conteudoStr;
             conteudoStr = new String(Files.readAllBytes(Paths.get(caminhoCodigoFonte)));
+            conteudoStr += '$';
             this.conteudo = conteudoStr.toCharArray();
             this.indiceConteudo = 0;
         } catch (IOException ex) {
@@ -60,15 +61,13 @@ public class Lexico {
 
     //Método retorna próximo token válido ou retorna mensagem de erro.
     public Token nextToken() {
-        char c;
-        //FIM DA LEITURA
-        if (!hasNextChar()) return new Token("", 99);
-
-        c = this.nextChar();
+        char c =  nextChar();
 
         //RETIRAR ESPAÇOS
         c = spaceTrim(c);
-        if(c == '\n' || c == ' ' || c == '\r') return new Token("", 99);
+
+        //FIM DA LEITURA
+        if(c == '$') return new Token("$", 99);
 
         if (c == '\'') return enterChar(c);
         if (isDigito(c)) return enterDigit(c);
@@ -82,7 +81,6 @@ public class Lexico {
 
     private char spaceTrim(char c){
         while(c == '\n' || c == ' ' || c == '\r') {
-            if (!hasNextChar()) return c;
             c = this.nextChar();
         }
         return c;
@@ -91,13 +89,12 @@ public class Lexico {
     private Token enterIdentifier(char c) {
         StringBuilder lexema = new StringBuilder();
 
-        while ((isLetra(c) || isDigito(c)) && hasNextChar()) {
+        while ((isLetra(c) || isDigito(c))) {
             lexema.append(c);
             c = nextChar();
         }
 
-        if (isLetra(c) || isDigito(c)) lexema.append(c);
-        else back();
+        back();
         if(isReservedWord(lexema.toString())) return new Token (lexema.toString(), 7);
         return new Token(lexema.toString(), 3);
     }
@@ -114,16 +111,12 @@ public class Lexico {
 
     private Token enterRelational(char c) {
         String lexma = ""+c;
-        if(!hasNextChar()){
-            if (c == '=') return new Token(lexma, 8);
-            else return new Token(lexma, 4);
-        }
-
         char nextChar = nextChar();
-        if(nextChar == '=' || nextChar == '>'){
-            if(nextChar == '=') return new Token(lexma + nextChar, 4);
-            if(c == '<') return new Token(lexma + nextChar, 4);
+
+        if(nextChar == '='){
+            return new Token(lexma + nextChar, 4);
         }
+        if(c == '<' && nextChar == '>')return new Token(lexma + nextChar, 4);
 
         back();
         if(lexma.equals("=")) return new Token(lexma, 8);
@@ -133,7 +126,7 @@ public class Lexico {
     private Token enterChar(char c) {
         String lexema = ""+c;
         c = nextChar();
-        if (c == '\'') throw new RuntimeException("ERROR: Char vazio");
+        if (!isLetra(c) && !isDigito(c)) throw new RuntimeException("ERROR: Char inválido");
         lexema += c;
         c = nextChar();
         if (c != '\'') throw new RuntimeException("ERROR: Char inválido");
@@ -144,17 +137,15 @@ public class Lexico {
 
     private Token enterDigit(char c) {
         StringBuilder lexema = new StringBuilder();
+
         do {
             lexema.append(c);
-            if (!hasNextChar()) {
-                break;
-            }
             c = nextChar();
         } while (isDigito(c));
 
         //INTEIRO
-        if (!hasNextChar() || c != '.'){
-            if(!isDigito(c)) back();
+        if (c != '.'){
+            back();
             return new Token(lexema.toString(), 0);
         }
         lexema.append(c);
@@ -164,13 +155,10 @@ public class Lexico {
 
         do {
             lexema.append(c);
-            if (!hasNextChar()) {
-                break;
-            }
             c = nextChar();
         } while (isDigito(c));
-        if (hasNextChar())
-            back();
+
+        back();
         return new Token(lexema.toString(), 1);
     }
 
