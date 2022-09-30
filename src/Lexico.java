@@ -67,7 +67,7 @@ public class Lexico {
         c = spaceTrim(c);
 
         //FIM DA LEITURA
-        if(c == '$') return new Token("$", 99);
+        if(c == '$' && !hasNextChar()) return new Token("$", 99);
 
         if (c == '\'') return enterChar(c);
         if (isDigito(c)) return enterDigit(c);
