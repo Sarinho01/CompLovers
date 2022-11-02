@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
+        System.out.println("LEXICO: ");
         Lexico lexico = new Lexico("src\\texto.txt");
         Token t = lexico.nextToken();
         while(t.getTipo() != 99){
@@ -7,6 +8,9 @@ public class Main {
             t = lexico.nextToken();
         }
         System.out.println(t);
+        System.out.println("\nSINTÁTICO: ");
+        Sintatico sintatico = new Sintatico(new Lexico("src\\texto.txt"));
+        sintatico.iniciar();
 
     }
 

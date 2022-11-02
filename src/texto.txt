@@ -1,1 +1,3 @@
-while float main if int else chararan char
+int main(){
+    int alan
+}
