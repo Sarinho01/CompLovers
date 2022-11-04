@@ -1,3 +1,11 @@
 int main(){
-    int alan
+
+    if(a>b){
+        }
+    else{
+     alan = 123/2;
+    }
+    int alan123;
+
+
 }

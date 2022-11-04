@@ -52,4 +52,31 @@ public class Token {
         }
         return "";
     }
+
+    public static String toString(int tipo)
+    {
+        switch(tipo){
+            case 0:
+                return "INTEIRO" ;
+            case 1:
+                return "REAL";
+            case 2:
+                return "CHAR";
+            case 3:
+                return "IDENTIFICADOR";
+            case 4:
+                return "OPERADOR_RELACIONAL";
+            case 5:
+                return "OPERADOR_ARITMETICO";
+            case 6:
+                return  "CARACTER_ESPECIAL";
+            case 7:
+                return  "PALAVRA_RESERVADA";
+            case 8:
+                return  "ATRIBUIÇÃO";
+            case 99:
+                return "FIM_CODIGO";
+        }
+        return "";
+    }
 }
