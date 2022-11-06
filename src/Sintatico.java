@@ -81,7 +81,7 @@ public class Sintatico {
         verificarLexema(metodo, "(");
         expressaoRelacional();
         verificarLexema(metodo, ")");
-        comando();
+        bloco();
     }
 
     private void condicional() {
