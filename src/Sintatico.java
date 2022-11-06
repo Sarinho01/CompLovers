@@ -45,7 +45,7 @@ public class Sintatico {
 
     private void bloco() {
         verificarLexema("bloco", "{");
-        while (!target.getLexema().equals("}")) {
+        while (!target.getLexema().equals("}") && target.getTipo() != Token.TIPO_FIM_CODIGO ) {
             if(target.getTipo() == Token.TIPO_PALAVRA_RESERVADA
                     && (target.getLexema().equals("int")
                     || target.getLexema().equals("float")
@@ -53,7 +53,7 @@ public class Sintatico {
             else comando();
         }
 
-        verificarLexema("bloco", "}");
+        verificarLexema("fim do bloco", "}");
     }
 
     private void declararVal() {
@@ -72,7 +72,7 @@ public class Sintatico {
         if (target.getTipo() == Token.TIPO_IDENTIFICADOR || target.getLexema().equals("{")) comandoBasico();
         else if (target.getLexema().equals("while")) iteracao();
         else if (target.getLexema().equals("if")) condicional();
-        else throw new RuntimeException("ERRO: " + target.getLexema() + " colocado em um lugar incorreto.");
+        else throw new RuntimeException("ERRO: na parte " + target.getLexema() + " colocado em um lugar incorreto.");
     }
 
     private void iteracao() {
