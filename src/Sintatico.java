@@ -32,6 +32,7 @@ public class Sintatico {
 
     public void iniciar() {
         programa();
+        if(target.getTipo() != Token.TIPO_FIM_CODIGO) throw new RuntimeException("ERRO: \"" + target.getLexema() + "\" colocado em um lugar incorreto.");
         System.out.println("Sintático passou com sucesso!!!");
     }
 
@@ -72,7 +73,7 @@ public class Sintatico {
         if (target.getTipo() == Token.TIPO_IDENTIFICADOR || target.getLexema().equals("{")) comandoBasico();
         else if (target.getLexema().equals("while")) iteracao();
         else if (target.getLexema().equals("if")) condicional();
-        else throw new RuntimeException("ERRO: na parte " + target.getLexema() + " colocado em um lugar incorreto.");
+        else throw new RuntimeException("ERRO: \"" + target.getLexema() + "\" colocado em um lugar incorreto.");
     }
 
     private void iteracao() {
