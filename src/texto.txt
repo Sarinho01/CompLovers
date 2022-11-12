@@ -1,20 +1,11 @@
 int main(){
-
-    if(a>b){
-        }
-    else{
-     alan = 123/2;
-    }
-    int alan123;
-    while(a>b){ a = 0;
-    b= 2;
-    int a;
+   int alan;
+   alan = (15+8)/10+15;
+   if(15 > 'a'){
     int b;
-    if(a>b){
-    a = 10+a;
-    }
-    }
+    alan = alan+b;
 
+   }
+   alan = b;
 
 }
-ASDASDA

@@ -12,6 +12,11 @@ public class Main {
         Sintatico sintatico = new Sintatico(new Lexico("src\\texto.txt"));
         sintatico.iniciar();
 
+        Compilador semantico = new Compilador(new Lexico("src\\texto.txt"));
+        System.out.println("\nSEMÂNTICO: ");
+        semantico.iniciar();
+
+
     }
 
 }
