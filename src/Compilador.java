@@ -94,6 +94,7 @@ public class Compilador {
         String identificadorNome = target.getLexema();//
         verificarTipo("declaração de variável", Token.TIPO_IDENTIFICADOR);
         verificarLexema("declaração de variável", ";");
+
         if(variaveis.containsKey(identificadorNome)) throw new RuntimeException("ERRO: variável \""+ identificadorNome+ "\" já existe");
         variaveisEscopo.add(identificadorNome);
         variaveis.put(identificadorNome, tipo);
@@ -193,7 +194,7 @@ public class Compilador {
                     + Token.toString(Token.TIPO_IDENTIFICADOR) + " ou "
                     + Token.toString(Token.TIPO_CHAR));
 
-        if (tipoAtual == null) tipoAtual = target.getTipo();
+        if (tipoAtual == null) tipoAtual = tipoAbsolutoTarget();
 
         else if (tipoAtual != tipoAbsolutoTarget())
             throw new RuntimeException("ERRO: valor \"" + target.getLexema() + "\" inválido para o parâmetro");

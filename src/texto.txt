@@ -1,11 +1,19 @@
 int main(){
-   int alan;
-   alan = (15+8)/10+15;
-   if(15 > 'a'){
-    int b;
-    alan = alan+b;
+    float sum;
+    float value01;
+    float value02;
+    float value03;
 
-   }
-   alan = b;
+    if(value01 + value02 > value03+5.0){
+        sum = sum + value01 + value02 + value03;
+    }
+    else{
+        sum = sum*(value01+value02)/2.0;
+        int b;
+    }
+
+
+
+
 
 }
